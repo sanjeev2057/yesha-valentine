@@ -5,7 +5,6 @@
   <title>Will you be my Valentine? 💘</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
 
   <style>
@@ -21,9 +20,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      /* Extended gradient to ensure it looks good if scrolling is needed */
       background: radial-gradient(circle at top, #ffd1dc 0, #ff4b6e 35%, #120019 100%);
+      background-attachment: fixed; /* Keeps background beautiful while scrolling */
       color: #fff;
-      overflow: hidden;
+      /* Removed overflow: hidden to fix the "text hiding" issue. 
+         Now she can scroll if the screen is small! */
+      overflow-x: hidden;
+      overflow-y: auto; 
     }
 
     .overlay {
@@ -45,14 +49,16 @@
     .container {
       position: relative;
       z-index: 2;
-      padding: 2rem 2.5rem 2.3rem;
+      padding: 3rem 2rem;
       border-radius: 24px;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.45);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55);
       text-align: center;
-      max-width: 95%;
-  width: 95%;
+      /* Updates to utilize more screen space */
+      width: 90%;
+      max-width: 800px; /* Wider for landscape mode */
       backdrop-filter: blur(18px);
+      margin: 20px auto; /* Adds spacing on top/bottom so it doesn't touch edges */
     }
 
     .heart {
@@ -87,66 +93,78 @@
     }
 
     @keyframes heartbeat {
-      0%   { transform: scale(1) rotate(-45deg); }
-      25%  { transform: scale(1.18) rotate(-45deg); }
-      40%  { transform: scale(0.98) rotate(-45deg); }
-      60%  { transform: scale(1.12) rotate(-45deg); }
-      100% { transform: scale(1) rotate(-45deg); }
+      0%    { transform: scale(1) rotate(-45deg); }
+      25%   { transform: scale(1.18) rotate(-45deg); }
+      40%   { transform: scale(0.98) rotate(-45deg); }
+      60%   { transform: scale(1.12) rotate(-45deg); }
+      100%  { transform: scale(1) rotate(-45deg); }
     }
 
     .duck {
-      font-size: 1.9rem;
-      margin-bottom: 0.3rem;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
       animation: floatDuck 2.5s ease-in-out infinite;
     }
 
     @keyframes floatDuck {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
+      50% { transform: translateY(-8px); }
     }
 
     h1 {
-      font-size: 2rem;
-      margin-bottom: 0.3rem;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
     .subtitle {
-      font-size: 0.95rem;
+      font-size: 1.1rem;
       color: #ffe4f1;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
     }
 
     .question {
-      font-size: 1.25rem;
-      margin-bottom: 1.2rem;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      color: #fff;
     }
 
     .tiny-favs {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: #ffe0f5;
-      margin-bottom: 1.1rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
     }
 
     .tiny-favs span {
       white-space: nowrap;
+      background: rgba(255,255,255,0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
     }
 
+    /* Adjusted buttons container to handle the moving No button better */
     .buttons {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
       position: relative;
-    height: 90px;
+      min-height: 60px; /* reduced fixed height so layout flows better */
+      align-items: flex-start;
     }
 
     button {
       cursor: pointer;
       border: none;
-      padding: 0.7rem 1.5rem;
-      font-size: 1rem;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
       border-radius: 999px;
       transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
     }
 
     #yesBtn {
@@ -154,6 +172,7 @@
       color: #102a43;
       font-weight: 700;
       box-shadow: 0 0 14px rgba(36, 255, 114, 0.8);
+      z-index: 10; /* Ensure YES is always above NO */
     }
 
     #yesBtn:hover {
@@ -165,59 +184,61 @@
       background: linear-gradient(135deg, #ff6a88, #ff99ac);
       color: #3c0020;
       font-weight: 600;
-      position: absolute;
+      position: relative; /* Default relative, JS turns it absolute */
+      transition: all 0.2s ease;
     }
 
     #noBtn:hover {
-      transform: translateY(-2px);
       box-shadow: 0 0 16px rgba(255, 154, 172, 0.9);
     }
 
     .hint {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color: #ffe0f5;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
       opacity: 0.9;
+      font-style: italic;
     }
 
     .followup {
-      margin-top: 0.5rem;
-      font-size: 0.96rem;
-      min-height: 44px;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      min-height: 20px;
+      font-weight: 500;
+      color: #a6ffcb;
     }
 
     .moment {
-      margin-top: 0.4rem;
-      font-size: 0.86rem;
+      margin-top: 0.8rem;
+      font-size: 1rem;
       color: #ffe0f5;
       opacity: 0.95;
-      min-height: 38px;
+      line-height: 1.5;
     }
 
     .footer {
-      margin-top: 1.3rem;
-      font-size: 0.8rem;
+      margin-top: 2rem;
+      font-size: 0.85rem;
       color: #ffd6f4;
-      opacity: 0.9;
+      opacity: 0.8;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1rem;
     }
 
     #confettiCanvas {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 3;
+      z-index: 9999;
     }
 
+    /* Mobile adjustments */
     @media (max-width: 480px) {
-      h1 {
-        font-size: 1.7rem;
-      }
-      .question {
-        font-size: 1.12rem;
-      }
-      .container {
-        padding: 1.6rem 1.2rem 2rem;
-      }
+      h1 { font-size: 1.8rem; }
+      .container { padding: 2rem 1.2rem; width: 95%; margin: 10px auto; }
+      button { padding: 0.8rem 1.5rem; font-size: 1rem; }
+      .buttons { flex-direction: column; align-items: center; gap: 1rem; height: auto; }
+      #noBtn { position: relative; width: 100%; max-width: 200px; }
     }
   </style>
 </head>
@@ -229,7 +250,7 @@
     <div class="heart"></div>
     <div class="duck">🦆💛</div>
 
-<h1>Hi meri dhadkan 💕</h1>
+    <h1>Hi meri dhadkan 💕</h1>
       <p class="subtitle">This is a very serious, extremely scientific question that requires your professional eye-surgeon level focus.
     </p>
 
@@ -255,7 +276,6 @@
     </div>
   </div>
 
-  <!-- Sounds -->
   <audio id="yaySound" src="https://cdn.pixabay.com/audio/2021/08/04/audio_48a1c59904.mp3"></audio>
   <audio id="boopSound" src="https://cdn.pixabay.com/audio/2022/03/10/audio_4bf2a6898b.mp3"></audio>
 
@@ -267,16 +287,33 @@
     const momentText = document.getElementById("momentText");
     const yaySound = document.getElementById("yaySound");
     const boopSound = document.getElementById("boopSound");
+    const buttonsContainer = document.querySelector(".buttons");
 
+    // Improved Random Button Logic
     function placeNoButtonRandom() {
-      const buttonsWrapper = document.querySelector(".buttons");
-      const wrapperRect = buttonsWrapper.getBoundingClientRect();
-      const maxX = wrapperRect.width - noBtn.offsetWidth;
-      const maxY = wrapperRect.height - noBtn.offsetHeight;
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
+      // Get the container dimensions (so it stays near the Yes button mostly)
+      // or the whole window if we want it to really run away
+      const containerRect = document.querySelector('.container').getBoundingClientRect();
+      
+      // Calculate safe boundaries within the container
+      const maxX = containerRect.width - noBtn.offsetWidth;
+      const maxY = containerRect.height - noBtn.offsetHeight;
+      
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      // Switch to absolute positioning so it can move freely inside container
+      noBtn.style.position = 'absolute';
+      
+      // If mobile, keep it strictly in bounds
+      if(window.innerWidth < 480) {
+         noBtn.style.left = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40) + "px";
+         noBtn.style.top = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40) + "px";
+         noBtn.style.position = 'fixed'; // On mobile, fixed works better to run away
+      } else {
+         noBtn.style.left = `${randomX}px`;
+         noBtn.style.top = `${randomY}px`;
+      }
     }
 
     noBtn.addEventListener("mouseenter", () => {
@@ -284,13 +321,14 @@
       boopSound.play();
       placeNoButtonRandom();
       const playfulLines = [
-        "Nice try, Dr. Yesha. Your vision is 20/20 but this ‘No’ button still escaped.",
-        "404: ‘No’ not found. Only chocolate and ‘Yes’.",
-        "System error: Saying no may cause permanent loss of ducks and tulips.",
+        "Nice try, Dr. Yesha. Your vision is 20/20 but this ‘No’ button is faster!",
+        "404: ‘No’ not found. Only chocolate and ‘Yes’ allowed.",
+        "System error: Saying no voids the warranty on my hugs.",
         "Access denied. Eye surgeon detected, but heart already claimed.",
-        "Warning: Clicking ‘No’ may result in lifetime shortage of my hugs."
+        "Warning: Clicking ‘No’ may result in fewer tulip dates!"
       ];
       hintText.textContent = playfulLines[Math.floor(Math.random() * playfulLines.length)];
+      hintText.style.color = "#ff6a88";
     });
 
     noBtn.addEventListener("click", (e) => {
@@ -304,38 +342,84 @@
       yaySound.currentTime = 0;
       yaySound.play();
       triggerConfetti();
+      
+      // FIX: Hide the No button completely so it doesn't overlap
+      noBtn.style.display = "none";
+
       yesBtn.textContent = "YAYYY, MY VALENTINE 💞";
       yesBtn.style.transform = "scale(1.1)";
       yesBtn.style.background = "linear-gradient(135deg, #ffe259, #ffa751)";
-      followupText.innerHTML = "I knew it. Official medical diagnosis: you’re stuck with me forever, no second opinion allowed. 🩺💘";
+      yesBtn.style.color = "#3c0020";
+      
+      followupText.innerHTML = "I knew it! Official medical diagnosis: you’re stuck with me forever. 🩺💘";
       momentText.innerHTML = "Treatment plan: celebrate with paneer (made by mom, obviously), ice‑cream, tiny cute jewelry window‑shopping, and me making you laugh at the smallest, silliest things. 🍦🌷🦆";
       hintText.textContent = "Please screenshot this for legal and romantic purposes.";
+      hintText.style.color = "#a6ffcb";
     });
 
     const confettiCanvas = document.getElementById("confettiCanvas");
     const ctx = confettiCanvas.getContext("2d");
     let confettiPieces = [];
     let confettiAnimationId;
-    function resizeCanvas() { confettiCanvas.width = window.innerWidth; confettiCanvas.height = window.innerHeight; }
+    
+    function resizeCanvas() { 
+      confettiCanvas.width = window.innerWidth; 
+      confettiCanvas.height = window.innerHeight; 
+    }
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
+
     function createConfetti() {
       const colors = ["#ff2e63", "#ffe259", "#24ff72", "#ff9a9e", "#fbc2eb"];
-      for (let i = 0; i < 180; i++) {
-        confettiPieces.push({ x: Math.random() * confettiCanvas.width, y: Math.random() * confettiCanvas.height - confettiCanvas.height, r: Math.random() * 6 + 3, d: Math.random() * 1 + 1, color: colors[Math.floor(Math.random() * colors.length)], tilt: Math.random() * 10 - 10 });
+      for (let i = 0; i < 200; i++) {
+        confettiPieces.push({ 
+          x: Math.random() * confettiCanvas.width, 
+          y: Math.random() * confettiCanvas.height - confettiCanvas.height, 
+          r: Math.random() * 6 + 3, 
+          d: Math.random() * 1 + 1, 
+          color: colors[Math.floor(Math.random() * colors.length)], 
+          tilt: Math.random() * 10 - 10 
+        });
       }
     }
+
     function drawConfetti() {
       ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-      confettiPieces.forEach((p) => { ctx.beginPath(); ctx.fillStyle = p.color; ctx.ellipse(p.x, p.y, p.r, p.r / 2, p.tilt, 0, 2 * Math.PI); ctx.fill(); });
+      confettiPieces.forEach((p) => { 
+        ctx.beginPath(); 
+        ctx.fillStyle = p.color; 
+        ctx.ellipse(p.x, p.y, p.r, p.r / 2, p.tilt, 0, 2 * Math.PI); 
+        ctx.fill(); 
+      });
       updateConfetti();
     }
+
     function updateConfetti() {
-      confettiPieces.forEach((p) => { p.y += p.d * 4; p.x += Math.sin(p.y * 0.02); if (p.y > confettiCanvas.height) { p.y = -10; p.x = Math.random() * confettiCanvas.width; } });
+      confettiPieces.forEach((p) => { 
+        p.y += p.d * 4; 
+        p.x += Math.sin(p.y * 0.02); 
+        if (p.y > confettiCanvas.height) { 
+          p.y = -10; 
+          p.x = Math.random() * confettiCanvas.width; 
+        } 
+      });
     }
-    function animateConfetti() { drawConfetti(); confettiAnimationId = requestAnimationFrame(animateConfetti); }
-    function triggerConfetti() { confettiPieces = []; createConfetti(); cancelAnimationFrame(confettiAnimationId); animateConfetti(); setTimeout(() => { cancelAnimationFrame(confettiAnimationId); ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height); }, 5000); }
-    window.addEventListener("load", placeNoButtonRandom);
+
+    function animateConfetti() { 
+      drawConfetti(); 
+      confettiAnimationId = requestAnimationFrame(animateConfetti); 
+    }
+
+    function triggerConfetti() { 
+      confettiPieces = []; 
+      createConfetti(); 
+      cancelAnimationFrame(confettiAnimationId); 
+      animateConfetti(); 
+      setTimeout(() => { 
+        cancelAnimationFrame(confettiAnimationId); 
+        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height); 
+      }, 6000); 
+    }
   </script>
 </body>
 </html>
