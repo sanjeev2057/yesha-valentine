@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Yesha, will you be my Valentine? 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffd1dc 0, #ff4b6e 35%, #120019 100%);
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.25) 0, transparent 55%),
+        url("https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f490.svg"),
+        url("https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f36b.svg"),
+        url("https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f42a.svg");
+      background-repeat: repeat;
+      background-size: 300px, 80px, 80px, 80px;
+      opacity: 0.09;
+      filter: blur(1px);
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      padding: 2rem 2.5rem 2.3rem;
+      border-radius: 24px;
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55);
+      text-align: center;
+      max-width: 520px;
+      width: 90%;
+      backdrop-filter: blur(18px);
+    }
+
+    .heart {
+      width: 95px;
+      height: 95px;
+      position: relative;
+      margin: 0 auto 1.1rem;
+      transform: rotate(-45deg);
+      background: #ff2e63;
+      animation: heartbeat 1.1s infinite;
+      box-shadow: 0 0 25px rgba(255, 46, 99, 0.7);
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      background: #ff2e63;
+    }
+
+    .heart::before {
+      top: -47px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: 47px;
+      top: 0;
+    }
+
+    @keyframes heartbeat {
+      0%   { transform: scale(1) rotate(-45deg); }
+      25%  { transform: scale(1.18) rotate(-45deg); }
+      40%  { transform: scale(0.98) rotate(-45deg); }
+      60%  { transform: scale(1.12) rotate(-45deg); }
+      100% { transform: scale(1) rotate(-45deg); }
+    }
+
+    .duck {
+      font-size: 1.9rem;
+      margin-bottom: 0.3rem;
+      animation: floatDuck 2.5s ease-in-out infinite;
+    }
+
+    @keyframes floatDuck {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: #ffe4f1;
+      margin-bottom: 1.2rem;
+    }
+
+    .question {
+      font-size: 1.25rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .tiny-favs {
+      font-size: 0.9rem;
+      color: #ffe0f5;
+      margin-bottom: 1.1rem;
+    }
+
+    .tiny-favs span {
+      white-space: nowrap;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      position: relative;
+      height: 60px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 999px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    #yesBtn {
+      background: linear-gradient(135deg, #24ff72, #a6ffcb);
+      color: #102a43;
+      font-weight: 700;
+      box-shadow: 0 0 14px rgba(36, 255, 114, 0.8);
+    }
+
+    #yesBtn:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 0 20px rgba(36, 255, 114, 0.95);
+    }
+
+    #noBtn {
+      background: linear-gradient(135deg, #ff6a88, #ff99ac);
+      color: #3c0020;
+      font-weight: 600;
+      position: absolute;
+    }
+
+    #noBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 16px rgba(255, 154, 172, 0.9);
+    }
+
+    .hint {
+      font-size: 0.8rem;
+      color: #ffe0f5;
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .followup {
+      margin-top: 0.5rem;
+      font-size: 0.96rem;
+      min-height: 44px;
+    }
+
+    .moment {
+      margin-top: 0.4rem;
+      font-size: 0.86rem;
+      color: #ffe0f5;
+      opacity: 0.95;
+      min-height: 38px;
+    }
+
+    .footer {
+      margin-top: 1.3rem;
+      font-size: 0.8rem;
+      color: #ffd6f4;
+      opacity: 0.9;
+    }
+
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.7rem;
+      }
+      .question {
+        font-size: 1.12rem;
+      }
+      .container {
+        padding: 1.6rem 1.2rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confettiCanvas"></canvas>
+  <div class="overlay"></div>
+
+  <div class="container">
+    <div class="heart"></div>
+    <div class="duck">🦆💛</div>
+
+    <h1>Hi Yesha, my silly goose 💕</h1>
+    <p class="subtitle">
+      This is a very serious, extremely scientific question that requires your professional eye-surgeon level focus.
+    </p>
+
+    <p class="question">Will you be my Valentine this year (and every year after)?</p>
+
+    <p class="tiny-favs">
+      Includes unlimited <span>🦆 duck sightings</span>, <span>🌷 tulip dates</span>, <span>🍦 ice‑cream runs</span>,
+      <span>🍫 emergency chocolates</span>, and lifetime access to <span>your‑mom’s paneer appreciation club</span>.
+    </p>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes, obviously 💘</button>
+      <button id="noBtn">No (??? 😂)</button>
+    </div>
+
+    <p class="hint" id="hintText">Hint: The “No” button has decided it only respects future eye surgeons when they click “Yes”.</p>
+    <p class="followup" id="followupText"></p>
+    <p class="moment" id="momentText"></p>
+
+    <div class="footer">
+      By continuing, you agree to: random giggles at tiny things, surprise <span>chocolate</span> attacks, and
+      being stuck with me while we glow up together. ✨
+    </div>
+  </div>
+
+  <!-- Sounds -->
+  <audio id="yaySound" src="https://cdn.pixabay.com/audio/2021/08/04/audio_48a1c59904.mp3"></audio>
+  <audio id="boopSound" src="https://cdn.pixabay.com/audio/2022/03/10/audio_4bf2a6898b.mp3"></audio>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const hintText = document.getElementById("hintText");
+    const followupText = document.getElementById("followupText");
+    const momentText = document.getElementById("momentText");
+    const yaySound = document.getElementById("yaySound");
+    const boopSound = document.getElementById("boopSound");
+
+    function placeNoButtonRandom() {
+      const buttonsWrapper = document.querySelector(".buttons");
+      const wrapperRect = buttonsWrapper.getBoundingClientRect();
+      const maxX = wrapperRect.width - noBtn.offsetWidth;
+      const maxY = wrapperRect.height - noBtn.offsetHeight;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    noBtn.addEventListener("mouseenter", () => {
+      boopSound.currentTime = 0;
+      boopSound.play();
+      placeNoButtonRandom();
+      const playfulLines = [
+        "Nice try, Dr. Yesha. Your vision is 20/20 but this ‘No’ button still escaped.",
+        "404: ‘No’ not found. Only chocolate and ‘Yes’.",
+        "System error: Saying no may cause permanent loss of ducks and tulips.",
+        "Access denied. Eye surgeon detected, but heart already claimed.",
+        "Warning: Clicking ‘No’ may result in lifetime shortage of my hugs."
+      ];
+      hintText.textContent = playfulLines[Math.floor(Math.random() * playfulLines.length)];
+    });
+
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      boopSound.currentTime = 0;
+      boopSound.play();
+      placeNoButtonRandom();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      yaySound.currentTime = 0;
+      yaySound.play();
+      triggerConfetti();
+      yesBtn.textContent = "YAYYY, MY VALENTINE 💞";
+      yesBtn.style.transform = "scale(1.1)";
+      yesBtn.style.background = "linear-gradient(135deg, #ffe259, #ffa751)";
+      followupText.innerHTML = "I knew it. Official medical diagnosis: you’re stuck with me forever, no second opinion allowed. 🩺💘";
+      momentText.innerHTML = "Treatment plan: celebrate with paneer (made by mom, obviously), ice‑cream, tiny cute jewelry window‑shopping, and me making you laugh at the smallest, silliest things. 🍦🌷🦆";
+      hintText.textContent = "Please screenshot this for legal and romantic purposes.";
+    });
+
+    const confettiCanvas = document.getElementById("confettiCanvas");
+    const ctx = confettiCanvas.getContext("2d");
+    let confettiPieces = [];
+    let confettiAnimationId;
+    function resizeCanvas() { confettiCanvas.width = window.innerWidth; confettiCanvas.height = window.innerHeight; }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    function createConfetti() {
+      const colors = ["#ff2e63", "#ffe259", "#24ff72", "#ff9a9e", "#fbc2eb"];
+      for (let i = 0; i < 180; i++) {
+        confettiPieces.push({ x: Math.random() * confettiCanvas.width, y: Math.random() * confettiCanvas.height - confettiCanvas.height, r: Math.random() * 6 + 3, d: Math.random() * 1 + 1, color: colors[Math.floor(Math.random() * colors.length)], tilt: Math.random() * 10 - 10 });
+      }
+    }
+    function drawConfetti() {
+      ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      confettiPieces.forEach((p) => { ctx.beginPath(); ctx.fillStyle = p.color; ctx.ellipse(p.x, p.y, p.r, p.r / 2, p.tilt, 0, 2 * Math.PI); ctx.fill(); });
+      updateConfetti();
+    }
+    function updateConfetti() {
+      confettiPieces.forEach((p) => { p.y += p.d * 4; p.x += Math.sin(p.y * 0.02); if (p.y > confettiCanvas.height) { p.y = -10; p.x = Math.random() * confettiCanvas.width; } });
+    }
+    function animateConfetti() { drawConfetti(); confettiAnimationId = requestAnimationFrame(animateConfetti); }
+    function triggerConfetti() { confettiPieces = []; createConfetti(); cancelAnimationFrame(confettiAnimationId); animateConfetti(); setTimeout(() => { cancelAnimationFrame(confettiAnimationId); ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height); }, 5000); }
+    window.addEventListener("load", placeNoButtonRandom);
+  </script>
+</body>
+</html>
